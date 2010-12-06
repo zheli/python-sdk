@@ -203,7 +203,7 @@ def get_user_from_cookie(cookies, app_id, app_secret):
     """
     cookie = cookies.get("fbs_" + app_id, "")
     if not cookie: return None
-    args = dict((k, v[-1]) for k, v in cgi.parse_qs(cookie.strip('"')).items())
+    args = dict((k, v[-1]) for k, v in cgi.parse_qs(cookie.value.strip('"')).items())
     payload = "".join(k + "=" + args[k] for k in sorted(args.keys())
                       if k != "sig")
     sig = hashlib.md5(payload + app_secret).hexdigest()
